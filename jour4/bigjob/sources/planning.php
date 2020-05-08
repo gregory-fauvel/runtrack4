@@ -29,7 +29,7 @@
 
                     $datejour = new DateTime("today");
 
-                    //var_dump($datejour);
+                  
 
                     if (!isset($_SESSION["num"])) {
                         $_SESSION["num"] = 0;
@@ -49,7 +49,7 @@
 
                     echo date_format($datejour, 'Y-m-d');
 
-                    $dateselec = date_format($datejour, 'Y-m-d');
+                    $dateselec = date_format($datejour, 'Y-m-d H-i-s');
 
 
 ?>
@@ -62,10 +62,11 @@
     <?php 
 //requete qui recupere tout de l utilisateur
       $id_utilisateur=$_SESSION['id'];
-      $connexion = mysqli_connect("localhost", "root", "", "bigjob");
-      $requete = "SELECT  debut,fin FROM reservations LEFT JOIN utilisateurs ON utilisateurs.id = reservations.id_utilisateur WHERE id=$id_utilisateur";
+      $connexion = mysqli_connect("localhost", "root", "","bigjob");
+      $requete = "SELECT debut,fin FROM reservations WHERE \"$dateselec\" BETWEEN DATE_FORMAT(debut, \"%Y-%m-%d\") AND DATE_FORMAT(fin, \"%Y-%m-%d\"";
       $query = mysqli_query($connexion, $requete);
       $resultat = mysqli_fetch_all($query);
+      var_dump($requete);
     
 ?>
 <div id="tableau">
@@ -79,7 +80,6 @@
                         <th>Mercredi</th>
                         <th>jeudi</th>
                         <th>Vendredi</th>
-                        <th>Samedi</th>
                   </thead>
               <tbody>
 
@@ -88,7 +88,7 @@
                 echo "<tr>";
                 echo "<td>".$heure."H";
 
-                        for ($jour=0; $jour <6 ; $jour++) { 
+                        for ($jour=0; $jour <5 ; $jour++) { 
                               echo "<td>";
               
                             if ($heure[$jour]>= $jour){
