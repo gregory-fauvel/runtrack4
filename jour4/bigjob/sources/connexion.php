@@ -7,7 +7,7 @@
     $ischampremplis = false;
 
     if ( isset($_POST['connexion']) == true && isset($_POST['login']) && strlen($_POST['login']) != 0 && isset($_POST['password']) && strlen($_POST['password']) != 0 ) {
-        $connexion = mysqli_connect("localhost", "root", "", "forum");
+        $connexion = mysqli_connect("localhost", "root", "", "bigjob");
         $requete = "SELECT * FROM utilisateurs WHERE login ='".$_POST['login']."'";
         $query = mysqli_query($connexion, $requete);
         $resultat = mysqli_fetch_all($query);
@@ -41,33 +41,41 @@
 
 <html>
 <head>
-    <title>Forum - Connexion</title>
-    <link rel="stylesheet" type="text/css" href="forum.css">
+    <title> Connexion</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+     <link rel="stylesheet" type="text/css" href="../CSS/bigjob.css">
+
     <meta charset="utf-8">
 </head>
-<body class="inscription">
+<body>
 
     <header class="header">
     <?php include("bar-nav.php"); ?>
     </header>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     
-  
+            
                 <?php
                 if ( !isset($_SESSION['login']) ) {
                     ?>
         
-                     <section class="conteneur1">
-                        <h1>Connexion</h1>
-                    
-                    <form method="post" action="connexion.php">
-                    
+                     <section class="container">
+                        <h1 class="titre">Connexion</h1>
+                        <div class="form-row justify-content-center">
+                            <form method="post" action="connexion.php">
                             <label>Identifiant</label>
-                            <input type="text" name="login" ><br />
+                            <input class="form-control" type="text" name="login" ><br />
                             <label>Mot de passe</label>
-                            <input type="password" name="password" ><br />
-                            <input class="bouton" type="submit" value="Se connecter" name="connexion" >
+                            <input class="form-control" type="password" name="password" ><br />
+                            <input class="btn btn-primary" type="submit" value="Se connecter" name="connexion" >
                         
                     </form>
+
+
                     <?php
                     if ( $ismdpwrong == true ) {
                     ?>
@@ -97,10 +105,22 @@
                 <?php
                 }
                 ?>
+                </div>
         </section>
+         <br>
+    <br>
+    <br>
+    <br>
+    <br> 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     
-                <footer class="footer">
-                     <aside> Copyright 2020 Coding School | All Rights Reserved | Project by Anthony,Mohamed,Grégory. </aside>
-                 </footer>
+         <?php include("footer.php"); ?>
+    
     </body>
 </html>

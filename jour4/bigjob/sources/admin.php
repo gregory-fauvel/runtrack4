@@ -26,124 +26,66 @@ date_default_timezone_set('europe/paris');
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Espace Administrateur - Boutique </title>
-    <link rel="stylesheet" href="boutique.css">
-</head>
-<body id="pageadmin">
-<header>
-<?php
-include("bar-nav.php");?>
-</header>
-<h1 class="titre">Nos Produits</h1>
-		<section id="formadmin">
-						<div class="form">
-						<?php	
-							
-								
-								if (isset($_POST['valider'])) {
+    <title>Espace Administrateur </title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+     <link rel="stylesheet" type="text/css" href="../CSS/bigjob.css">
+		</head>
+			<body id="pageadmin">
+				<header>
+				<?php
+				include("bar-nav.php");?>
+				</header>
+				<h1 class="titre">Les réservations</h1>
 
-									if (!empty($_POST['titre'])&& !empty($_POST['prix'])&& !empty($_POST['description'])&& !empty($_POST['photo'])&& !empty($_POST['souscategories'])) {
-													$titre = $_POST['titre'];
-									                $prix = $_POST['prix'];
-									                $description = $_POST['description'];
-									                $photo = $_POST['photo'];
-									                $categories = $_POST['categories'];
-									                $souscategories = $_POST['souscategories'];
-									                $connexion = new PDO('mysql:host=localhost;dbname=boutique', 'root', '');
-													$requete = $connexion->prepare("INSERT INTO produits (nomproduit, prixproduit, description, image,categories,souscategories) VALUES ('$titre', '$prix', '$description','$photo','$categories','$souscategories')");
-													$requete->execute();
-												
-									}
-								
-								}
-							  ?>
-							  <p class="titre">Creer des Articles</p>
-							  <form method="post" >
-							                    <label>Titre</label></br>
-							                    <input type="text" name="titre" required></br>
-							                    <label>Prix</label></br>
-							                    <input type="text" name="prix"></br>
-							                    <label>Description</label></br>
-							                    <input type="text" name="description" required></br>
-							                   	<label>Photo</label></br>							    
-							                   	<input type="file" name="photo" required></br>
-							                   	<label>Catégories</label></br>
-							                    <input type="text" name="categories" required></br>
-							                   	<label>Sous Catégories</label></br>
-							                    <input type="text" name="souscategories" required></br>
-							                    <input type="submit" value="Envoyer" name="valider"></br>
-							   </form>
-							</div>
-
-							<div class="form">
+						<section class="container">
+							<div class="form-row justify-content-center">
+								<img height="250" src="../assets/eleve.jpg">
 							   	<?php
 
 								if (isset($_POST['modifier'])) {
-									echo "string";
-									if (!empty($_POST['titre3']) && !empty($_POST['titre2']) && !empty($_POST['description']) && !empty($_POST['photo']) && !empty($_POST['categories']) && !empty($_POST['souscategories'])) {
-										echo "connexion";
-													$titre3 = $_POST['titre3'];
-													$titre2 =  $_POST['titre2'];
-									                $prix2 = $_POST['prix2'];
-									                $description = $_POST['description'];
-									                $photo = $_POST['photo'];
-									                $id = $_SESSION['id'];
-									                $categories = $_POST['categories'];
-									                $souscategories = $_POST['souscategories'];
-									                $connexion = new PDO('mysql:host=localhost;dbname=boutique', 'root', '');
-													$requete2 = $connexion->prepare("UPDATE produits SET nomproduit= '$titre2', prixproduit= '$prix2', description= '$description' ,image = '$photo' ,categories = '$categories' ,souscategories ='$souscategories' WHERE nomproduit = '$titre3'");
-													$requete2->execute();
-													
-									}
-								
+									$titre = $_POST['titre'];
+									$rank =  $_POST['rank'];
+									$id = $_SESSION['id'];
+									$connexion = new PDO('mysql:host=localhost;dbname=bigjob', 'root', '');
+									$requete2 = $connexion->prepare("UPDATE utilisateurs SET rank = '$rank' WHERE name= '$titre'");
+									$requete2->execute();
 								}
 							  ?>
-							   <p class="titre">Modifier des Articles</p>
+							</div>
+							   <h1 class="titre">Modifier et Supprimer des RDV et Elèves </h1>
+							<div class="form-row justify-content-center">
 							  	  <form method="post">
-								  				<label>Recherche Articles</label></br>
-							                    <input type="text" name="titre3" required></br>
-							                    <label>Modifier Articles</label></br>
-							                    <input type="text" name="titre2" required></br>
-							                    <label>Prix</label></br>
-							                    <input type="text" name="prix2"></br>
-							                    <label>Description</label></br>
-							                    <input type="text" name="description" required></br>
-							                    <label>Photo</label></br>							                    
-							                   	<input type="file" name="photo" required></br>
-							                   	<label>Catégories</label></br>
-							                    <input type="text" name="categories" required></br>
-							                   	<label>Sous Catégories</label></br>
-							                    <input type="text" name="souscategories" required></br>
-							                    <input type="submit" value="modifier" name="modifier"></br>
+								  	<label class="titre">Recherche Elèves</label></br>
+							        <input class="form-control" type="text" name="titre" required></br>
+							        <label> Modifier Grade</label></br>
+							        <input class="form-control" type="text" name="rank"></br>
+							        <input class="btn btn-primary" type="submit" value="modifier" name="modifier"></br>
 							      </form>
-							   </div>
-							   <div class="form">
+							  
+							
 							   <?php
 
 							   if (isset($_POST['effacer'])) {
 							   		if (!empty($_POST['titre4']))
-											 			{
-											 			$titre4 = $_POST['titre4']; 
-										                $id = $_SESSION['id'];
-										                $connexion = new PDO('mysql:host=localhost;dbname=boutique', 'root', '');
-									        			$requete3 = $connexion->prepare("DELETE FROM produits WHERE nomproduit = '$titre4'");
-									        			$requete3->execute();
+										{
+										$titre4 = $_POST['titre4']; 
+										$id = $_SESSION['id'];
+										$connexion = new PDO('mysql:host=localhost;dbname=bigjob', 'root', '');
+									    $requete3 = $connexion->prepare("DELETE FROM utilisateurs WHERE login = '$titre4'");
+									    $requete3->execute();
 									        			
-				   										}						   	
-							  					}	
+				   						}						   	
+							  		}	
 		
-							   ?>
-							    <p class="titre">Effacer des Articles</p>
-							    				<form method="post">
-							                    <label>Titre</label></br>
-							                    <input type="text" name="titre4" required></br>
-							                    <input type="submit" value="effacer" name="effacer"></br>
-							    				</form>
+							   		?>
+							    
+							    	<form method="post">
+							           <label class="titre">Titre</label></br>
+							           <input class="form-control" type="text" name="titre4" required></br>
+							           <input class="btn btn-primary"type="submit" value="effacer" name="effacer"></br>
+							    	</form>
 							    </div>
-
-
-
-						
-</section>
-</body>
-</html>
+							</section>
+							   <?php include 'footer.php' ?>
+							</body>
+							</html>

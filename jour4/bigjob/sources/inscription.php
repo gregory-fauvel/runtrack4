@@ -14,54 +14,46 @@ if (!isset($_SESSION["login"])) {
 
 <head>
     <meta charset="UTF-8">
-    <title> Inscription</title>
-    <link rel="stylesheet" href="bigjob.css">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+     <link rel="stylesheet" type="text/css" href="../CSS/bigjob.css">
+
 </head>
 
-<body class="inscription">
+<body id="inscription">
     
-    <header class="header">
+    <header>
     <?php include 'bar-nav.php' ?>
     </header>
-    
-        <section class="conteneur1">
-        <h1> Inscription </h1>
 
-        <form method='POST' action='inscription.php'>
-
-
-            <article>
+                
+                <br>
+                <br>
+     
+        <div class="container">
+               <h1 class="titre">Inscription</h1>
+                <section class="form-row justify-content-center">
+                <form method='POST' action='inscription.php'>
                 <label> Login </label>
-                <input type="text" name='login' required />
-            </article>
-
-            <article>
+                <input class="form-control" type="text" name='login' required />
                 <label> Nom </label>
-                <input type="text" name='name' required />
-            </article>
-
-            <article>
+                <input class="form-control" type="text" name='name' required />
                 <label> Prenom </label>
-                <input type="text" name='surname' required />
-            </article>
-
-            <article>
+                <input class="form-control" type="text" name='surname' required />
                 <label> Mot de passe </label>
-                <input type="password" name='mdp1' required />
-            </article>
-
-            <article>
+                <input class="form-control" type="password" name='mdp1' required />
                 <label> Confirmation de mot de passe </label>
-                <input type="password" name='mdp2' required />
-            </article>
-
-
-            <article>
+                <input class="form-control" type="password" name='mdp2' required />
                 <label> Votre email </label>
-                <input  type="email" pattern=".+@laplateforme.io" name='email' required />
-            </article>
+                <input class="form-control"  type="email" pattern=".+@laplateforme.io" name='email' required />
+                <br>
+                <input class="btn btn-primary" type='submit' name='inscription' value='Inscription' />
+            </div>
+                <br>
+                <br>
+                <br>
+                
 
-            <input class="bouton" type='submit' name='inscription' value='Inscription' />
 
             <?php
 
@@ -90,7 +82,7 @@ if (!isset($_SESSION["login"])) {
            if ($trouve==false)
            {
             $sql = "INSERT INTO utilisateurs (login,password,name,surname,rank,date,email)
-                VALUES ('$login','$mdp','$name','$surn','Membre',NOW(),$email)";
+                VALUES ('$login','$mdp','$name','$surn','Membre',NOW(),'$email')";
             $query=mysqli_query($connexion,$sql);
             header('location:connexion.php');
             }
@@ -111,21 +103,17 @@ if (!isset($_SESSION["login"])) {
     }
     else 
     {
-    ?>
-    <section id="notcon">
-      <p>Vous êtes déjà connecté impossible de s'inscrire !!</p>
-    </section>
-        <?php
+    header("location:index.php");
     }
     ?>
         </form>
     </section>
+     <?php include 'footer.php' ?>
+    
 
 
    
-                <footer class="footer">
-                     <aside> Copyright 2020 Coding School | All Rights Reserved | Project by Anthony,Mohamed,Grégory. </aside>
-                 </footer>
+               
 
 </body>
 
